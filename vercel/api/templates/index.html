@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="./insta.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Retro Instagram</title>
+    <style>
+      :root {
+        --header-top: #517fa4;
+        --header-bot: #306088;
+        --bg-color: #c4c4c4;
+        --panel-bg: #f2f2f2;
+        --link-blue: #003569;
+      }
+
+      body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        background-color: #222;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      /* PHONE CONTAINER */
+      .app-container {
+        width: 320px; /* iPhone 4 width */
+        background-color: #d8d8d8;
+        min-height: 480px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* HEADER */
+      .header {
+        height: 44px;
+        background: linear-gradient(to bottom, #517fa4 0%, #306088 100%);
+        border-bottom: 1px solid #1a3c5a;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 10px;
+        margin-bottom: 12px;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.2),
+          0 2px 3px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+      }
+
+      .header-title {
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
+        font-family: "Billabong", sans-serif;
+      }
+
+      .btn-header {
+        background: linear-gradient(to bottom, #4c7a9f 0%, #2b577b 100%);
+        border: 1px solid #143048;
+        border-radius: 4px;
+        padding: 6px 10px;
+        color: #fff;
+        font-size: 11px;
+        font-weight: bold;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        cursor: pointer;
+      }
+
+      /* INPUT AREA */
+      .input-area {
+        background: #cdcdcd;
+        border-bottom: 1px solid #aaa;
+        padding: 8px;
+        display: flex;
+        gap: 6px;
+      }
+      .input-area input {
+        flex: 1;
+        padding: 6px;
+        border: 1px solid #aaa;
+        border-radius: 5px;
+        outline: none;
+        font-size: 14px;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      /* PROFILE SECTION */
+      .profile-card {
+        background: #f2f2f2;
+        border-bottom: 1px solid #bbb;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        border-top: 1px solid #aaa;
+      }
+
+      .profile-top {
+        display: flex;
+      }
+
+      /* --- FIXED PROFILE PIC BORDERS --- */
+      .pic-frame {
+        width: 78px;
+        height: 78px;
+        padding: 4px; /* The white rim */
+        background: #fff;
+        border-right: 1px solid #a5a5a5;
+        border-bottom: 1px solid #a5a5a5;
+        flex-shrink: 0;
+      }
+      .pic-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border: 1px solid #ccc; /* Inner subtle border */
+      }
+
+      /* --- FIXED STATS BORDERS --- */
+      .stats-area {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .stats-grid {
+        display: flex;
+        border-bottom: 1px solid #aaa;
+        height: 50%;
+      }
+
+      .stat-box {
+        flex: 1;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-right: 1px solid #aaa;
+      }
+
+      .stat-box:last-child {
+        border-right: none;
+        box-shadow: none;
+      }
+
+      .stat-num {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        display: block;
+      }
+      .stat-label {
+        font-size: 10px;
+        color: #888;
+        font-weight: bold;
+        text-transform: lowercase;
+      }
+      .follow-area {
+        border-bottom: 1px solid #aaa;
+        display: flex;
+      }
+
+      /* FOLLOW BUTTON */
+      .btn-follow {
+        width: 100%;
+        margin: 6px;
+        background: linear-gradient(to bottom, #548ab9 0%, #306088 100%);
+        border: 1px solid #234766;
+        border-radius: 4px;
+        color: white;
+        font-weight: bold;
+        font-size: 13px;
+        padding: 6px 0;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        cursor: pointer;
+      }
+      .btn-follow:active {
+        background: #2b5578;
+      }
+
+      /* BIO */
+      .bio-area {
+        font-size: 13px;
+        padding: 6px;
+        color: #333;
+        line-height: 1.3;
+      }
+      .bio-name {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 2px;
+      }
+      .bio-link {
+        color: var(--link-blue);
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      /* TABS */
+      .tab-bar {
+        display: flex;
+        margin-top: 8px;
+        margin-bottom: 6px;
+        height: 40px;
+        background: linear-gradient(to bottom, #f0f0f0 0%, #dcdcdc 100%);
+        border-top: 1px solid #f9f9f9;
+        border-bottom: 1px solid #999;
+      }
+      .tab {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-right: 1px solid #aaa;
+        box-shadow: inset 1px 0 0 white;
+        cursor: pointer;
+        font-size: 18px;
+        color: #777;
+      }
+      .tab.active {
+        background: #cdcdcd;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
+        color: #333;
+      }
+      .tab:last-child {
+        border-right: none;
+      }
+
+      /* PHOTO GRID */
+      .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        padding: 0;
+        background: #dcdcdc;
+        flex: 1;
+        overflow-y: auto;
+      }
+      .grid-item {
+        aspect-ratio: 1/1;
+        background: #ccc;
+        overflow: hidden;
+        margin: 2px;
+        border: 2px solid #ffffff;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+      }
+      .grid-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-container" id="capture-area">
+      <div class="input-area">
+        <input type="text" id="usernameInput" placeholder="Enter username..." />
+        <button class="btn-header" onclick="fetchProfile()">Load</button>
+      </div>
+      <div class="header">
+        <div class="btn-header">Explore</div>
+        <div class="header-title">INSTAGRAM</div>
+        <div class="btn-header" onclick="fetchProfile()">::</div>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-top">
+          <div class="pic-frame">
+            <img
+              id="p-img"
+              src="https://via.placeholder.com/150"
+              alt="Profile"
+            />
+          </div>
+
+          <div class="stats-area">
+            <div class="stats-grid">
+              <div class="stat-box">
+                <span class="stat-num" id="p-photos">0</span>
+                <span class="stat-label">photos</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-num" id="p-followers">0</span>
+                <span class="stat-label">followers</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-num" id="p-following">0</span>
+                <span class="stat-label">following</span>
+              </div>
+            </div>
+            <div class="follow-area">
+              <button class="btn-follow">Follow</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="bio-area">
+          <span class="bio-name" id="p-name">Username</span>
+          <div id="p-bio">Bio text here.</div>
+          <a href="#" class="bio-link" id="p-link"></a>
+        </div>
+      </div>
+
+      <div class="tab-bar">
+        <div class="tab active">▦</div>
+        <div class="tab">☰</div>
+        <div class="tab" style="font-size: 12px; font-weight: bold">
+          📍 Photo Map
+        </div>
+      </div>
+
+      <div class="photo-grid" id="grid-container"></div>
+    </div>
+
+    <script>
+      async function fetchProfile() {
+        const username = document.getElementById("usernameInput").value;
+        try {
+          const response = await fetch("/scrape", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username: username }),
+          });
+          const data = await response.json();
+          if (data.error) {
+            alert(data.error);
+            return;
+          }
+
+          document.getElementById("p-img").src = data.profile_pic_url;
+          document.getElementById("p-photos").innerText = data.posts_count;
+          document.getElementById("p-followers").innerText = data.followers;
+          document.getElementById("p-following").innerText = data.following;
+          document.getElementById("p-name").innerText = data.full_name;
+          document.getElementById("p-bio").innerText = data.biography;
+
+          if (data.external_url) {
+            document.getElementById("p-link").innerText = data.external_url;
+            document.getElementById("p-link").href = data.external_url;
+          } else {
+            document.getElementById("p-link").innerText = "";
+          }
+
+          const grid = document.getElementById("grid-container");
+          grid.innerHTML = "";
+          data.posts.forEach((post) => {
+            const div = document.createElement("div");
+            div.className = "grid-item";
+            div.innerHTML = `<img src="${post.image_url}">`;
+            grid.appendChild(div);
+          });
+        } catch (err) {
+          alert("Failed to fetch.");
+        }
+      }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  </body>
+</html>
